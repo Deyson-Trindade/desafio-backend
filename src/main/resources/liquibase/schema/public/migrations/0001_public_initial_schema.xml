@@ -5,23 +5,24 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
 
-    <changeSet id="100320220120" author="deyson.trindade">
+    <changeSet id="110320221553" author="deyson.trindade">
         <sql>
-            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+            CREATE
+            EXTENSION IF NOT EXISTS "uuid-ossp";
         </sql>
     </changeSet>
-    
-    <changeSet id="100320220121" author="deyson.trindade">
+
+    <changeSet id="110320221554" author="deyson.trindade">
 
         <preConditions onFail="CONTINUE">
             <not>
                 <tableExists tableName="tools"/>
             </not>
         </preConditions>
-        
+
         <createTable tableName="tools">
             <column defaultValueComputed="${uuid_function}" name="id" type="${uuid_type}">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="tools_pkey" foreignKeyName="tools_fk"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tools_pkey"/>
             </column>
 
             <column name="title" type="VARCHAR">
@@ -38,9 +39,42 @@
         </createTable>
 
         <rollback>
-            <dropColumn tableName="tools"/>
+            <dropTable tableName="tools"/>
         </rollback>
 
+    </changeSet>
+
+    <changeSet id="110320221555" author="deyson.trindade">
+
+        <preConditions onFail="CONTINUE">
+            <not>
+                <tableExists tableName="tags"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="tags">
+
+            <column defaultValueComputed="${uuid_function}" name="id" type="${uuid_type}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tags_pkey"/>
+            </column>
+
+            <column name="name" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="tool_id" type="${uuid_type}">
+                <constraints nullable="false"
+                             foreignKeyName="fk_tools_tags"
+                             referencedTableName="tools"
+                             referencedColumnNames="id"
+                             validateForeignKey="true"/>
+            </column>
+
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="tags"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

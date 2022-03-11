@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="110320221556" author="deyson.trindade">
+
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="tools"/>
+        </preConditions>
+
+        <insert tableName="tools">
+            <column name="id" value="14a9bc79-1373-4e7f-9119-5115530a4081"/>
+            <column name="title" value="Notion"/>
+            <column name="link" value="https://notion.so"/>
+            <column name="description"
+                    value="All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized."/>
+        </insert>
+
+        <insert tableName="tools">
+            <column name="id" value="790a825d-7fc0-4ce2-887a-6591f90d7616"/>
+            <column name="title" value="json-server"/>
+            <column name="link" value="https://github.com/typicode/json-server"/>
+            <column name="description"
+                    value="Fake REST API based on a json schema.
+                     Useful for mocking and creating APIs for front-end devs to consume in coding challenges."/>
+        </insert>
+
+        <insert tableName="tools">
+            <column name="id" value="388e65c7-cb31-47ff-baab-adf2eb7060d3"/>
+            <column name="title" value="fastify"/>
+            <column name="link" value="https://www.fastify.io/"/>
+            <column name="description"
+                    value="Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2."/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="110320221557" author="deyson.trindade">
+        <insert tableName="tags">
+            <column name="name" value="organization"/>
+            <column name="tool_id" value="14a9bc79-1373-4e7f-9119-5115530a4081"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="planning"/>
+            <column name="tool_id" value="14a9bc79-1373-4e7f-9119-5115530a4081"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="collaboration"/>
+            <column name="tool_id" value="14a9bc79-1373-4e7f-9119-5115530a4081"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="writing"/>
+            <column name="tool_id" value="14a9bc79-1373-4e7f-9119-5115530a4081"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="calendar"/>
+            <column name="tool_id" value="14a9bc79-1373-4e7f-9119-5115530a4081"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="api"/>
+            <column name="tool_id" value="790a825d-7fc0-4ce2-887a-6591f90d7616"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="json"/>
+            <column name="tool_id" value="790a825d-7fc0-4ce2-887a-6591f90d7616"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="schema"/>
+            <column name="tool_id" value="790a825d-7fc0-4ce2-887a-6591f90d7616"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="node"/>
+            <column name="tool_id" value="790a825d-7fc0-4ce2-887a-6591f90d7616"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="github"/>
+            <column name="tool_id" value="790a825d-7fc0-4ce2-887a-6591f90d7616"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="rest"/>
+            <column name="tool_id" value="790a825d-7fc0-4ce2-887a-6591f90d7616"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="web"/>
+            <column name="tool_id" value="388e65c7-cb31-47ff-baab-adf2eb7060d3"/>
+        </insert>
+
+
+        <insert tableName="tags">
+            <column name="name" value="framework"/>
+            <column name="tool_id" value="388e65c7-cb31-47ff-baab-adf2eb7060d3"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="node"/>
+            <column name="tool_id" value="388e65c7-cb31-47ff-baab-adf2eb7060d3"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="http2"/>
+            <column name="tool_id" value="388e65c7-cb31-47ff-baab-adf2eb7060d3"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="https"/>
+            <column name="tool_id" value="388e65c7-cb31-47ff-baab-adf2eb7060d3"/>
+        </insert>
+
+        <insert tableName="tags">
+            <column name="name" value="localhost"/>
+            <column name="tool_id" value="388e65c7-cb31-47ff-baab-adf2eb7060d3"/>
+        </insert>
+
+        <rollback>
+            <sql>
+                DELETE FROM tool_id WHERE tool_id IN (14a9bc79-1373-4e7f-9119-5115530a4081,
+                388e65c7-cb31-47ff-baab-adf2eb7060d3, 388e65c7-cb31-47ff-baab-adf2eb7060d3);
+            </sql>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
