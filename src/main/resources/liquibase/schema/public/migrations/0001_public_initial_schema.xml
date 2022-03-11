@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="100320220120" author="deyson.trindade">
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
+    
+    <changeSet id="100320220121" author="deyson.trindade">
+
+        <preConditions onFail="CONTINUE">
+            <not>
+                <tableExists tableName="tools"/>
+            </not>
+        </preConditions>
+        
+        <createTable tableName="tools">
+            <column defaultValueComputed="${uuid_function}" name="id" type="${uuid_type}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tools_pkey" foreignKeyName="tools_fk"/>
+            </column>
+
+            <column name="title" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="link" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropColumn tableName="tools"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

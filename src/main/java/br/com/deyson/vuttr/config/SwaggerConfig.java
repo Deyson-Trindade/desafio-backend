@@ -18,7 +18,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .addOpenApiCustomiser(openApi -> openApi.info(new Info().title(properties.getInfo().getApp().getName()).version(properties.getInfo().getApp().getVersion()).description(properties.getInfo().getApp().getDescription())))
                 .group("endpoints")
-                .pathsToMatch("/**", "/monitor/**")
+                .pathsToMatch("/monitor/")
                 .build();
     }
 
