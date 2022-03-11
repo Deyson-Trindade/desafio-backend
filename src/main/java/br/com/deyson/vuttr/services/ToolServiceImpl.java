@@ -1,6 +1,7 @@
 package br.com.deyson.vuttr.services;
 
 import br.com.deyson.vuttr.entities.ToolEntity;
+import br.com.deyson.vuttr.models.TagModel;
 import br.com.deyson.vuttr.models.ToolModel;
 import br.com.deyson.vuttr.repositories.ToolRepository;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,8 @@ public class ToolServiceImpl implements ToolService {
     public List<ToolModel> listAll() {
         return toolRepository.findAll()
                 .stream()
-                .map(toolEntity -> modelMapper.map(toolEntity, ToolModel.class))
-                .collect(Collectors.toList());
+                .map(toolEntity -> modelMapper.map(toolEntity, ToolModel.class)).collect(Collectors.toList());
+
     }
 
     @Override

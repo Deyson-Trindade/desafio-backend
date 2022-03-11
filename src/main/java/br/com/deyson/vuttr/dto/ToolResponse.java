@@ -2,6 +2,7 @@ package br.com.deyson.vuttr.dto;
 
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -15,4 +16,5 @@ public class ToolResponse {
 
     private String description;
 
+    private List<String> tags;
 }

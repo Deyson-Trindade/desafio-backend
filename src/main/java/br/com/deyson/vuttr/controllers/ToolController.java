@@ -2,6 +2,7 @@ package br.com.deyson.vuttr.controllers;
 
 import br.com.deyson.vuttr.dto.ToolRequest;
 import br.com.deyson.vuttr.dto.ToolResponse;
+import br.com.deyson.vuttr.models.TagModel;
 import br.com.deyson.vuttr.models.ToolModel;
 import br.com.deyson.vuttr.services.ToolService;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("tools")
@@ -24,8 +26,14 @@ public class ToolController {
     private final ModelMapper modelMapper;
 
     @GetMapping
-    public List<ToolModel> getAllTools() {
-        return toolsService.listAll();
+    public List<ToolResponse> getAllTools() {
+         List<ToolModel> toolModels = toolsService.listAll();
+         return toolModels.stream().map(toolModel -> {
+             final ToolResponse toolResponse = modelMapper.map(toolModel, ToolResponse.class);
+             List<String> tags = toolModel.getTags().stream().map(TagModel::getName).collect(Collectors.toList());
+             toolResponse.setTags(tags);
+             return toolResponse;
+         }).collect(Collectors.toList());
     }
 
     @GetMapping("/{tag}")

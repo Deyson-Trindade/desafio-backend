@@ -4,6 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,8 +32,8 @@ public class ToolEntity {
     private String description;
 
     @OneToMany
-    @JoinColumn(name = "id")
-    private Set<TagEntity> tags;
+    @JoinColumn(name = "tool_id")
+    private List<TagEntity> tags;
 
 
 }
