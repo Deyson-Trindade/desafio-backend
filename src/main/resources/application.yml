@@ -1,7 +1,7 @@
 info:
   app:
-    name: Vuttr
-    description: Startaideia challenge
+    name: VUTTR API
+    description: very useful tool to remember (Startaideia challenge)
 
 management:
   endpoint:
