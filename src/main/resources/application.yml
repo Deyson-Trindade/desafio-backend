@@ -14,7 +14,54 @@ management:
         include: '*'
       base-path: /monitor
 
+server:
+  port: 3000
+  connection-timeout: 1800
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /api-docs-ui
+  api-docs:
+    path: /api-docs
+  show-actuator: true
+
+---
+
 spring:
+  profiles: prod
+
+  banner:
+    location: src/main/resources/banner.txt
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    password: changeme
+    username: postgres
+    url: jdbc:postgresql://host.docker.internal:5435/vuttr?useSSL=false
+    configuration:
+      auto-commit: false
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: false
+        ddl-auto: none
+
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:liquibase/schema/public/schema-public-master.xml
+    default-schema: public
+
+---
+
+spring:
+  profiles: dev
+
+  banner:
+    location: src/main/resources/banner.txt
 
   datasource:
     driverClassName: org.postgresql.Driver
@@ -36,15 +83,3 @@ spring:
     drop-first: false
     change-log: classpath:liquibase/schema/public/schema-public-master.xml
     default-schema: public
-
-server:
-  port: 3000
-  connection-timeout: 1800
-
-springdoc:
-  swagger-ui:
-    enabled: true
-    path: /api-docs-ui
-  api-docs:
-    path: /api-docs
-  show-actuator: true
