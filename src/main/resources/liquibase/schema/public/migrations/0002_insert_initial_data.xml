@@ -24,8 +24,7 @@
             <column name="title" value="json-server"/>
             <column name="link" value="https://github.com/typicode/json-server"/>
             <column name="description"
-                    value="Fake REST API based on a json schema.
-                     Useful for mocking and creating APIs for front-end devs to consume in coding challenges."/>
+                    value="Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges."/>
         </insert>
 
         <insert tableName="tools">
