@@ -31,9 +31,6 @@ springdoc:
 spring:
   profiles: prod
 
-  banner:
-    location: src/main/resources/banner.txt
-
   datasource:
     driverClassName: org.postgresql.Driver
     password: changeme
@@ -59,9 +56,6 @@ spring:
 
 spring:
   profiles: dev
-
-  banner:
-    location: src/main/resources/banner.txt
 
   datasource:
     driverClassName: org.postgresql.Driver
