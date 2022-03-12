@@ -1,7 +1,6 @@
 package br.com.deyson.vuttr.services;
 
 import br.com.deyson.vuttr.entities.ToolEntity;
-import br.com.deyson.vuttr.models.TagModel;
 import br.com.deyson.vuttr.models.ToolModel;
 import br.com.deyson.vuttr.repositories.ToolRepository;
 import lombok.AllArgsConstructor;
@@ -20,24 +19,27 @@ public class ToolServiceImpl implements ToolService {
 
     final ModelMapper modelMapper;
 
-
     @Override
-    public List<ToolModel> listAll() {
-        return toolRepository.findAll()
-                .stream()
-                .map(toolEntity -> modelMapper.map(toolEntity, ToolModel.class)).collect(Collectors.toList());
-
+    public List<ToolModel> listAllByTag(String tag) {
+        final List<ToolEntity> entities = tag.isBlank() ? toolRepository.findAll() : toolRepository.findAllByTagsIn(tag);
+        return entities.stream().map(toolEntity -> modelMapper.map(toolEntity, ToolModel.class)).collect(Collectors.toList());
     }
 
     @Override
     public void delete(final UUID id) {
-        toolRepository.deleteById(id);
+        toolRepository.findById(id).ifPresent(toolEntity -> {
+            toolEntity.getTags().clear();
+            toolRepository.delete(toolEntity);
+        });
     }
 
     @Override
     public ToolModel create(final ToolModel toolModel) {
 
         ToolEntity toolEntity = modelMapper.map(toolModel, ToolEntity.class);
+        toolEntity.getTags().forEach(tagEntity -> {
+            tagEntity.setTool(toolEntity);
+        });
         return modelMapper.map(toolRepository.save(toolEntity), ToolModel.class);
     }
 }

@@ -1,6 +1,8 @@
 package br.com.deyson.vuttr.entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,7 +11,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tags")
-@Data
+@Getter
+@Setter
 public class TagEntity {
 
     @Id
@@ -22,7 +25,8 @@ public class TagEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "tool_id", nullable = false)
-    private UUID toolId;
+    @ManyToOne
+    @JoinColumn(name = "tool_id")
+    private ToolEntity tool;
 
 }

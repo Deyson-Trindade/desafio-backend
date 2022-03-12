@@ -1,18 +1,21 @@
 package br.com.deyson.vuttr.entities;
 
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tools")
-@Data
+@Getter
+@Setter
 public class ToolEntity {
 
     @Id
@@ -32,8 +35,7 @@ public class ToolEntity {
     @NotBlank
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tool_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tool")
     private List<TagEntity> tags;
 
 

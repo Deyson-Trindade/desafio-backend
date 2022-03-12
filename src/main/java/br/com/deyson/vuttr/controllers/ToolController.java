@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,22 +25,13 @@ public class ToolController {
 
     private final ModelMapper modelMapper;
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ToolResponse> getAllTools() {
-         List<ToolModel> toolModels = toolsService.listAll();
-         return toolModels.stream().map(toolModel -> {
-             final ToolResponse toolResponse = modelMapper.map(toolModel, ToolResponse.class);
-             List<String> tags = toolModel.getTags().stream().map(TagModel::getName).collect(Collectors.toList());
-             toolResponse.setTags(tags);
-             return toolResponse;
-         }).collect(Collectors.toList());
+    public List<ToolResponse> getAllTools(@RequestParam(name = "tag", defaultValue = "", required = false) String tag) {
+        List<ToolModel> toolModels = toolsService.listAllByTag(tag);
+        return createToolResponses(toolModels);
     }
 
-    @GetMapping("/{tag}")
-    public ResponseEntity<?> getByTag() {
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
@@ -64,10 +54,18 @@ public class ToolController {
         return toolResponse;
     }
 
-    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable final UUID id) {
         toolsService.delete(id);
     }
 
+    private List<ToolResponse> createToolResponses(List<ToolModel> toolModels) {
+        return toolModels.stream().map(toolModel -> {
+            final ToolResponse toolResponse = modelMapper.map(toolModel, ToolResponse.class);
+            List<String> tags = toolModel.getTags().stream().map(TagModel::getName).collect(Collectors.toList());
+            toolResponse.setTags(tags);
+            return toolResponse;
+        }).collect(Collectors.toList());
+    }
 }
