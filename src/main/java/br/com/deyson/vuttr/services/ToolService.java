@@ -9,7 +9,7 @@ public interface ToolService {
 
     List<ToolModel> listAllByTag(String tag);
 
-    void delete(UUID uuid);
+    void delete(UUID uuid) throws Exception;
 
     ToolModel create(ToolModel toolModel);
 

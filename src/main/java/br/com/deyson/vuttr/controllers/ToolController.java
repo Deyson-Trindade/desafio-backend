@@ -42,7 +42,7 @@ public class ToolController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable final UUID id) {
+    public void delete(@PathVariable final UUID id) throws Exception {
         toolsService.delete(id);
     }
 

@@ -9,16 +9,17 @@ import java.util.List;
 @Data
 public class ToolRequest {
 
-    @NotBlank
-    private String title;
 
-    @NotBlank
-    private String link;
+    @NotBlank(message = "field title cannot be empty")
+    private final String title;
 
-    @NotBlank
-    private String description;
+    @NotBlank(message = "field link cannot be empty")
+    private final String link;
 
-    @NotEmpty(message = "Tag list mustn't be empty")
-    private List<String> tags;
+    @NotBlank(message = "field description cannot be empty")
+    private final String description;
+
+    @NotEmpty(message = "field must have at least one tag")
+    private final List<String> tags;
 
 }

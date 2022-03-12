@@ -1,6 +1,7 @@
 package br.com.deyson.vuttr.services;
 
 import br.com.deyson.vuttr.entities.ToolEntity;
+import br.com.deyson.vuttr.exceptions.ToolNotFoundException;
 import br.com.deyson.vuttr.models.ToolModel;
 import br.com.deyson.vuttr.repositories.ToolRepository;
 import lombok.AllArgsConstructor;
@@ -26,11 +27,10 @@ public class ToolServiceImpl implements ToolService {
     }
 
     @Override
-    public void delete(final UUID id) {
-        toolRepository.findById(id).ifPresent(toolEntity -> {
-            toolEntity.getTags().clear();
-            toolRepository.delete(toolEntity);
-        });
+    public void delete(final UUID id) throws ToolNotFoundException {
+        ToolEntity entity = toolRepository.findById(id).orElseThrow(() -> new ToolNotFoundException("Tool cannot be found for this id"));
+        entity.getTags().clear();
+        toolRepository.delete(entity);
     }
 
     @Override
