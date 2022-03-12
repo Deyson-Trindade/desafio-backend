@@ -38,8 +38,6 @@ public class ToolServiceImpl implements ToolService {
     public ToolModel create(final ToolModel toolModel) {
 
         ToolEntity toolEntity = modelMapper.map(toolModel, ToolEntity.class);
-        toolRepository.save(toolEntity);
-
-        return null;
+        return modelMapper.map(toolRepository.save(toolEntity), ToolModel.class);
     }
 }

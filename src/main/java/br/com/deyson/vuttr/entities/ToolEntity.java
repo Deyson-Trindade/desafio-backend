@@ -1,6 +1,8 @@
 package br.com.deyson.vuttr.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,7 +16,6 @@ import java.util.UUID;
 public class ToolEntity {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
     @NotNull
     private UUID id;
@@ -31,7 +32,7 @@ public class ToolEntity {
     @NotBlank
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "tool_id")
     private List<TagEntity> tags;
 

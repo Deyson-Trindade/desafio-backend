@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 public class ToolModel {
 
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     private String title;
 

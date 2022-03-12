@@ -8,6 +8,7 @@ import br.com.deyson.vuttr.services.ToolService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,8 @@ public class ToolController {
 
     private final ModelMapper modelMapper;
 
-    @GetMapping
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<ToolResponse> getAllTools() {
          List<ToolModel> toolModels = toolsService.listAll();
          return toolModels.stream().map(toolModel -> {
@@ -41,20 +43,31 @@ public class ToolController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<ToolResponse> create(@RequestBody @Valid final ToolRequest toolRequest) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ToolResponse create(@RequestBody @Valid final ToolRequest toolRequest) {
 
         ToolModel convertedToolModel = modelMapper.map(toolRequest, ToolModel.class);
 
-        ToolModel persistedToolModel = toolsService.create(convertedToolModel);
+        List<TagModel> tagsModel = toolRequest.getTags().stream().map(tag -> {
+            final TagModel tagModel = new TagModel();
+            tagModel.setName(tag);
+            tagModel.setToolId(convertedToolModel.getId());
+            return tagModel;
+        }).collect(Collectors.toList());
+        convertedToolModel.setTags(tagsModel);
 
-        return new ResponseEntity<>(modelMapper.map(persistedToolModel, ToolResponse.class), HttpStatus.CREATED);
+        final ToolModel persisted = toolsService.create(convertedToolModel);
+        final ToolResponse toolResponse = modelMapper.map(persisted, ToolResponse.class);
+        toolResponse.setTags(toolRequest.getTags());
+
+        return toolResponse;
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable final UUID id) {
+    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable final UUID id) {
         toolsService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

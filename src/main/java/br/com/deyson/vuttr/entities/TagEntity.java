@@ -19,9 +19,10 @@ public class TagEntity {
     private UUID id;
 
     @NotBlank
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
+    @Column(name = "tool_id", nullable = false)
     private UUID toolId;
 
 }
