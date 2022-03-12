@@ -36,22 +36,8 @@ public class ToolController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ToolResponse create(@RequestBody @Valid final ToolRequest toolRequest) {
-
         ToolModel convertedToolModel = modelMapper.map(toolRequest, ToolModel.class);
-
-        List<TagModel> tagsModel = toolRequest.getTags().stream().map(tag -> {
-            final TagModel tagModel = new TagModel();
-            tagModel.setName(tag);
-            tagModel.setToolId(convertedToolModel.getId());
-            return tagModel;
-        }).collect(Collectors.toList());
-        convertedToolModel.setTags(tagsModel);
-
-        final ToolModel persisted = toolsService.create(convertedToolModel);
-        final ToolResponse toolResponse = modelMapper.map(persisted, ToolResponse.class);
-        toolResponse.setTags(toolRequest.getTags());
-
-        return toolResponse;
+        return createToolResponse(toolRequest, convertedToolModel);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -67,5 +53,20 @@ public class ToolController {
             toolResponse.setTags(tags);
             return toolResponse;
         }).collect(Collectors.toList());
+    }
+
+    private ToolResponse createToolResponse(ToolRequest toolRequest, ToolModel convertedToolModel) {
+        List<TagModel> tagsModel = toolRequest.getTags().stream().map(tag -> {
+            final TagModel tagModel = new TagModel();
+            tagModel.setName(tag);
+            tagModel.setToolId(convertedToolModel.getId());
+            return tagModel;
+        }).collect(Collectors.toList());
+        convertedToolModel.setTags(tagsModel);
+
+        final ToolModel persistedToolModel = toolsService.create(convertedToolModel);
+        final ToolResponse toolResponse = modelMapper.map(persistedToolModel, ToolResponse.class);
+        toolResponse.setTags(toolRequest.getTags());
+        return toolResponse;
     }
 }
