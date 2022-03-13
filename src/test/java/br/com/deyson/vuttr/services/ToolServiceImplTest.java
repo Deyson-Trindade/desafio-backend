@@ -6,13 +6,13 @@ import br.com.deyson.vuttr.exceptions.ToolNotFoundException;
 import br.com.deyson.vuttr.models.TagModel;
 import br.com.deyson.vuttr.models.ToolModel;
 import br.com.deyson.vuttr.repositories.ToolRepository;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
 public class ToolServiceImplTest {
 
 
@@ -90,12 +90,12 @@ public class ToolServiceImplTest {
         toolService.delete(id);
     }
 
-    @Test(expected = ToolNotFoundException.class)
+    @Test
     public void whenDeletingToolAndIdNotExists_thenThrowNotFoundException() throws Exception {
         final UUID id = UUID.randomUUID();
 
         when(toolRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
-        toolService.delete(id);
+        Assertions.assertThrows(ToolNotFoundException.class, () -> toolService.delete(id));
     }
 
 
@@ -116,9 +116,7 @@ public class ToolServiceImplTest {
 
     private ToolEntity from(ToolModel model) {
         ToolEntity entity =  modelMapper.map(model, ToolEntity.class);
-        entity.getTags().forEach(tagEntity -> {
-            tagEntity.setTool(entity);
-        });
+        entity.getTags().forEach(tagEntity -> tagEntity.setTool(entity));
         return entity;
     }
 
