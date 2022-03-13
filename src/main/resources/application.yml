@@ -29,7 +29,10 @@ springdoc:
 ---
 
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile:
+        - prod
 
   datasource:
     driverClassName: org.postgresql.Driver
@@ -55,7 +58,10 @@ spring:
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile:
+        - dev
 
   datasource:
     driverClassName: org.postgresql.Driver
