@@ -5,6 +5,7 @@ import br.com.deyson.vuttr.dto.ToolResponse;
 import br.com.deyson.vuttr.models.TagModel;
 import br.com.deyson.vuttr.models.ToolModel;
 import br.com.deyson.vuttr.services.ToolService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("tools")
 @AllArgsConstructor
+@Tag(name = "Tool-Operations")
 public class ToolController {
 
     private final ToolService toolsService;
