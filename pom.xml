@@ -8,6 +8,7 @@
 		<version>2.6.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>br.com.deyson.vuttr</groupId>
 	<artifactId>vuttr</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -15,6 +16,9 @@
 	<description>Startaideia challenge</description>
 	<properties>
 		<java.version>11</java.version>
+		<maven.test.skip>false</maven.test.skip>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	<dependencies>
 
