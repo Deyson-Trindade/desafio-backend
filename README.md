@@ -134,8 +134,8 @@ called AOP (aspect oriented programing) to instantiate log to the whole API only
 
 ## Testing API
 
-For testing purpose the whole API is documented and the access is through the following link: {application-host}:{application-port}/api-docs-ui
-Obs: In case running locally the url is locallhost:3000/api-docs-ui
+For testing purpose the whole API is documented and the access is through the following link: `{application-host}:{application-port}/api-docs-ui`
+Obs: In case running locally the url is `locallhost:3000/api-docs-ui`
 
 
 ## Walk-through
@@ -147,8 +147,8 @@ Obs: In case running locally the url is locallhost:3000/api-docs-ui
 ### 2: Ways to run the API
 
 #### Option 1:
-Run the command ".\buildAndUp.cmd" to build and start the API through Docker.
+Run the command `.\buildAndUp.cmd` to build and start the API through Docker.
 #### Option 2:
-Run the command "docker build -t vuttr ." to build an image from application. Then
-run the command "docker-compose up -d" to up the application.
+Run the command `docker build -t vuttr .` to build an image from application. Then
+run the command `docker-compose up -d` to up the application.
 
