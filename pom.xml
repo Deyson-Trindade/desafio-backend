@@ -128,12 +128,11 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<configuration>
 					<changeLogFile>src/main/resources/liquibase/schema/public/schema-public-master.xml</changeLogFile>
-					<url>host.docker.internal:5435/vuttr?useSSL=false</url>
+					<url>postgres://eekphatlfaauni:237080b623015784f4dfc85f4dbf409a10acfc5c9ec97c92e255588f62997c89@ec2-3-209-61-239.compute-1.amazonaws.com:5432/da9384n99gjmc7</url>
 				</configuration>
 			</plugin>
 
 		</plugins>
-
 	</build>
 
 </project>

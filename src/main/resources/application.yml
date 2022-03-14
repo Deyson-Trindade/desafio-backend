@@ -36,9 +36,9 @@ spring:
 
   datasource:
     driverClassName: org.postgresql.Driver
-    password: changeme
-    username: postgres
-    url: jdbc:postgresql://host.docker.internal:5435/vuttr?useSSL=false
+    password: 237080b623015784f4dfc85f4dbf409a10acfc5c9ec97c92e255588f62997c89
+    username: eekphatlfaaun
+    url: postgres://eekphatlfaauni:237080b623015784f4dfc85f4dbf409a10acfc5c9ec97c92e255588f62997c89@ec2-3-209-61-239.compute-1.amazonaws.com:5432/da9384n99gjmc7
     configuration:
       auto-commit: false
 
