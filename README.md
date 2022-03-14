@@ -134,7 +134,7 @@ called AOP (aspect oriented programing) to instantiate log to the whole API only
 
 ## Testing API
 
-For testing purpose the whole API is documented and the access is through the following link: `https://startaideia-challenge.herokuapp.com/api-docs-ui`
+For testing purpose the whole API is documented and the access is through the following link: <https://startaideia-challenge.herokuapp.com/api-docs-ui>
 Obs: In case running locally the url is `locallhost:3000/api-docs-ui`
 
 
