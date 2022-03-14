@@ -7,5 +7,5 @@ RUN mvn clean package
 FROM gcr.io/distroless/java
 COPY --from=build /usr/app/target/*.jar /usr/app/app.jar
 EXPOSE 3000
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=prod","/usr/app/app.jar"]
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=dev","/usr/app/app.jar"]
 
